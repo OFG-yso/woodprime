@@ -4050,6 +4050,11 @@
     }
   ],
   "reportReferences": "手提げラック",
+  "reportViewAngles": [
+    -0.7853981633974483,
+    0.6154797086703873
+  ],
+  "reportViewZoom": 1,
   "nails": [
     {
       "id": "n1",
@@ -4248,6 +4253,18 @@
       "s": 1
     }
   ],
+  "assemblyOrder": [
+    "p5",
+    "p8",
+    "p7",
+    "p11",
+    "p12",
+    "p15",
+    "p16",
+    "p13",
+    "p10",
+    "p14"
+  ],
   "format": "itazai-design",
   "schemaVersion": 1,
   "generator": {
@@ -4255,7 +4272,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-15T03:39:08.682Z",
+  "savedAt": "2026-10-16T11:23:48.109Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
@@ -4273,10 +4290,5 @@
       "references": 1
     }
   },
-  "reportViewAngles": [
-    -0.7853981633974483,
-    0.6154797086703873
-  ],
-  "reportViewZoom": 1,
   "coordinateSystem": "right-handed-z-up"
 }
