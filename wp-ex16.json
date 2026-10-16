@@ -2,7 +2,7 @@
   "version": 1,
   "title": "板材設計",
   "next": 26,
-  "selected": "p17",
+  "selected": "p20",
   "kerf": 10,
   "parts": [
     {
@@ -1650,13 +1650,13 @@
       "used": true,
       "pos": [
         536.8679884320301,
-        -105.1650617406425,
+        -105.16506229342889,
         34
       ],
       "rot": [
         0,
-        90,
-        90
+        270,
+        270
       ],
       "operationNode": "08ff3272-b88a-41c9-be45-2dfb21f67e75:0",
       "outline": [
@@ -1748,8 +1748,8 @@
       "floorOffset": 12.999999999999996,
       "rotationAngles": [
         0,
-        90,
-        90
+        270,
+        270
       ]
     },
     {
@@ -5967,6 +5967,11 @@
     }
   ],
   "reportReferences": "引き出し付ラック",
+  "reportViewAngles": [
+    -0.7853981633974483,
+    0.6154797086703873
+  ],
+  "reportViewZoom": 1,
   "nails": [
     {
       "id": "n1",
@@ -6363,7 +6368,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-14T07:55:36.606Z",
+  "savedAt": "2026-10-16T09:42:10.119Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
@@ -6381,10 +6386,5 @@
       "references": 1
     }
   },
-  "reportViewAngles": [
-    -0.7853981633974483,
-    0.6154797086703873
-  ],
-  "reportViewZoom": 1,
   "coordinateSystem": "right-handed-z-up"
 }
