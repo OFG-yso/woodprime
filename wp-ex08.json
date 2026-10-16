@@ -2,7 +2,7 @@
   "version": 1,
   "title": "板材設計",
   "next": 15,
-  "selected": "p10",
+  "selected": "p5",
   "kerf": 10,
   "parts": [
     {
@@ -5034,7 +5034,43 @@
       ]
     }
   ],
+  "references": [
+    {
+      "id": "ref-1792145216478-9y4f",
+      "name": "ボックスティッシュ",
+      "isReference": true,
+      "used": true,
+      "size": [
+        230,
+        115,
+        60
+      ],
+      "mesh": null,
+      "pos": [
+        526.9999998944272,
+        0,
+        42.00000000000001
+      ],
+      "rot": [
+        -180,
+        0,
+        0
+      ],
+      "h": 115,
+      "floorOffset": 12,
+      "rotationAngles": [
+        0,
+        180,
+        180
+      ]
+    }
+  ],
   "reportReferences": "ティッシュボックス",
+  "reportViewAngles": [
+    -0.7853981633974483,
+    0.6154797086703873
+  ],
+  "reportViewZoom": 1,
   "nails": [
     {
       "id": "n1",
@@ -5236,7 +5272,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-14T14:13:17.488Z",
+  "savedAt": "2026-10-16T10:08:21.312Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
@@ -5254,10 +5290,5 @@
       "references": 1
     }
   },
-  "reportViewAngles": [
-    -0.7853981633974483,
-    0.6154797086703873
-  ],
-  "reportViewZoom": 1,
   "coordinateSystem": "right-handed-z-up"
 }

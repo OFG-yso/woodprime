@@ -5472,7 +5472,38 @@
       ]
     }
   ],
+  "references": [
+    {
+      "id": "ref-1792145463551-q6yl",
+      "name": "A4ノート",
+      "isReference": true,
+      "used": true,
+      "size": [
+        210,
+        5,
+        297
+      ],
+      "mesh": null,
+      "pos": [
+        21.50000000000017,
+        -29.999999371390683,
+        160.5
+      ],
+      "rot": [
+        0,
+        0,
+        90
+      ],
+      "h": 5,
+      "floorOffset": 12
+    }
+  ],
   "reportReferences": "棚付ファイルラック",
+  "reportViewAngles": [
+    -0.7853981633974483,
+    0.6154797086703873
+  ],
+  "reportViewZoom": 1,
   "nails": [
     {
       "id": "n1",
@@ -5739,7 +5770,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-13T21:29:56.027Z",
+  "savedAt": "2026-10-16T10:12:02.919Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
@@ -5757,10 +5788,5 @@
       "references": 1
     }
   },
-  "reportViewAngles": [
-    -0.7853981633974483,
-    0.6154797086703873
-  ],
-  "reportViewZoom": 1,
   "coordinateSystem": "right-handed-z-up"
 }

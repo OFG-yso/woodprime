@@ -8172,6 +8172,37 @@
       ]
     }
   ],
+  "references": [
+    {
+      "id": "ref-1792144801142-gf55",
+      "name": "スマートフォン",
+      "isReference": true,
+      "used": true,
+      "size": [
+        72,
+        9,
+        150
+      ],
+      "mesh": null,
+      "pos": [
+        105.54465508217666,
+        -5.59742456580485,
+        124.54313806238078
+      ],
+      "rot": [
+        18.000000000000007,
+        0,
+        -180
+      ],
+      "h": 9,
+      "rotationAngles": [
+        18,
+        0,
+        180
+      ],
+      "floorOffset": 51.823322865557
+    }
+  ],
   "reportReferences": "スマホスタンド付ラック",
   "reportViewAngles": [
     -0.7853981633974483,
@@ -8481,7 +8512,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-14T11:21:28.165Z",
+  "savedAt": "2026-10-16T10:02:21.471Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",

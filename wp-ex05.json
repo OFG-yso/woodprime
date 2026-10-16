@@ -2,7 +2,7 @@
   "version": 1,
   "title": "板材設計",
   "next": 22,
-  "selected": "p10",
+  "selected": "p6",
   "kerf": 10,
   "parts": [
     {
@@ -7657,6 +7657,85 @@
       ]
     }
   ],
+  "references": [
+    {
+      "id": "ref-1792145056405-o5ml",
+      "name": "スマートフォン",
+      "isReference": true,
+      "used": true,
+      "size": [
+        72,
+        9,
+        150
+      ],
+      "mesh": null,
+      "pos": [
+        105.99999974153579,
+        -5.385130939936403,
+        125.19650858207982
+      ],
+      "rot": [
+        18.000000000000007,
+        0,
+        -180
+      ],
+      "h": 9,
+      "floorOffset": 52.47669338525604,
+      "rotationAngles": [
+        18,
+        0,
+        180
+      ]
+    },
+    {
+      "id": "ref-1792145105878-diqa",
+      "name": "文庫",
+      "isReference": true,
+      "used": true,
+      "size": [
+        105,
+        15,
+        148
+      ],
+      "mesh": null,
+      "pos": [
+        -138.5,
+        22.500000038476053,
+        86
+      ],
+      "rot": [
+        0,
+        0,
+        90
+      ],
+      "h": 15,
+      "floorOffset": 12
+    },
+    {
+      "id": "ref-1792145109575-z90x",
+      "name": "漫画",
+      "isReference": true,
+      "used": true,
+      "size": [
+        112,
+        15,
+        176
+      ],
+      "mesh": null,
+      "pos": [
+        -161.5,
+        19.000000015100472,
+        100
+      ],
+      "rot": [
+        0,
+        0,
+        90
+      ],
+      "h": 15,
+      "floorOffset": 12
+    }
+  ],
   "reportReferences": "スマホスタンド付本立て",
   "reportViewAngles": [
     -0.7853981633974483,
@@ -7895,7 +7974,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-14T11:23:21.357Z",
+  "savedAt": "2026-10-16T10:05:43.647Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",

@@ -8072,6 +8072,37 @@
       ]
     }
   ],
+  "references": [
+    {
+      "id": "ref-1792144966390-up58",
+      "name": "スマートフォン",
+      "isReference": true,
+      "used": true,
+      "size": [
+        72,
+        9,
+        150
+      ],
+      "mesh": null,
+      "pos": [
+        -81.49999999999994,
+        -5.552624514717174,
+        124.5595000810579
+      ],
+      "rot": [
+        18.000000000000007,
+        0,
+        -180
+      ],
+      "h": 9,
+      "floorOffset": 51.83968488423413,
+      "rotationAngles": [
+        18,
+        0,
+        180
+      ]
+    }
+  ],
   "reportReferences": "スマホスタンド付小物入れ",
   "reportViewAngles": [
     -0.7853981633974483,
@@ -8423,7 +8454,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-14T16:03:10.156Z",
+  "savedAt": "2026-10-16T10:03:59.966Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
