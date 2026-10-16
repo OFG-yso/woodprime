@@ -1263,7 +1263,7 @@ function openDesignSave(){
  $('reviewDesignSave').onclick=()=>{update();if($('reviewDesignSave').disabled)return;const name=designSaveName(saveIdentity);dialog('<h2>ファイル名の確認</h2><p>このファイル名で保存しますか？</p><p class="saveFilePreview">'+esc(name)+'</p><div class="row"><button id="reviseDesignSave">ファイル名修正に戻る</button><button id="confirmDesignSave" class="primary">保存する</button></div>');$('reviseDesignSave').onclick=openDesignSave;$('confirmDesignSave').onclick=()=>{state.lastDesignFilename=name;download(new Blob([JSON.stringify(designForSave(),null,2)],{type:'application/json'}),name);markDesignSaved();persist();$('dialog').close()}};
 }
 
-$('load').onclick=()=>requestOpenDesign();$('file').onchange=()=>readDesignFile($('file').files[0]);async function readDesignFile(f){if(!f)return;try{if(f.size>20000000)throw Error();let s=designForRuntime(JSON.parse(await f.text()));if(!valid(s))throw Error();checkpoint();state=migrate(s);state.lastDesignFilename=f.name;saveIdentity=identityFromFilename(f.name);state.reportIdentity={...saveIdentity};markDesignSaved();shapeDrafts.clear();cutPartId=null;cutSettings.clear();const prevStep=activeStep||1;if(prevStep===2){assemblySelectionCleared=true;referenceSelection=null}renderHold=true;clearSceneCanvas();try{refresh();setStep(prevStep)}catch(e){renderHold=false;throw e}if(prevStep!==2)pendingHomeFit=true;requestAnimationFrame(()=>{requestAnimationFrame(()=>{try{if(activeStep!==prevStep)setStep(prevStep);if(prevStep===2){$('cubeHome')?.click();$('fitSelected')?.click()}}finally{renderHold=false;if(prevStep===2)resize()}})});message(state.compatibilityWarnings?.length?'部品の形状と配置を読み込みました。利用できない付加情報は無効化し、再保存するJSON内に保管します。元のファイルも残してください。':validSaveIdentity(saveIdentity)?'':'設計を読み込みました。ファイル名から氏名等を取得できないため、Step3で入力してください。');if(state.compatibilityWarnings?.length)dialog('<h2>設計を読み込みました</h2><p>部品の形状と配置は読み込めました。一部の付加情報は利用できないため、その情報を使う表示・編集機能を無効化しました。</p><p>対象：'+esc(state.compatibilityWarnings.join('、'))+'</p><p>元情報は再保存するJSONにも保管します。元ファイルも残しておいてください。</p>')}catch(e){message('読み込めませんでした。現在の設計は変更していません。元のJSONを残してください。'+(e?.message||''))}finally{$('file').value=''}};
+$('load').onclick=()=>requestOpenDesign();$('file').onchange=()=>readDesignFile($('file').files[0]);async function readDesignFile(f){if(!f)return;try{if(f.size>20000000)throw Error();let s=designForRuntime(JSON.parse(await f.text()));if(!valid(s))throw Error();if(typeof stopAssemblyAnimation==='function')stopAssemblyAnimation();stopAssemblyAnimation();checkpoint();state=migrate(s);state.lastDesignFilename=f.name;saveIdentity=identityFromFilename(f.name);state.reportIdentity={...saveIdentity};markDesignSaved();shapeDrafts.clear();cutPartId=null;cutSettings.clear();const prevStep=activeStep||1;if(prevStep===2){assemblySelectionCleared=true;referenceSelection=null}renderHold=true;clearSceneCanvas();try{refresh();setStep(prevStep)}catch(e){renderHold=false;throw e}if(prevStep!==2)pendingHomeFit=true;requestAnimationFrame(()=>{requestAnimationFrame(()=>{try{if(activeStep!==prevStep)setStep(prevStep);if(prevStep===2){$('cubeHome')?.click();$('fitSelected')?.click()}}finally{renderHold=false;if(prevStep===2)resize()}})});message(state.compatibilityWarnings?.length?'部品の形状と配置を読み込みました。利用できない付加情報は無効化し、再保存するJSON内に保管します。元のファイルも残してください。':validSaveIdentity(saveIdentity)?'':'設計を読み込みました。ファイル名から氏名等を取得できないため、Step3で入力してください。');if(state.compatibilityWarnings?.length)dialog('<h2>設計を読み込みました</h2><p>部品の形状と配置は読み込めました。一部の付加情報は利用できないため、その情報を使う表示・編集機能を無効化しました。</p><p>対象：'+esc(state.compatibilityWarnings.join('、'))+'</p><p>元情報は再保存するJSONにも保管します。元ファイルも残しておいてください。</p>')}catch(e){message('読み込めませんでした。現在の設計は変更していません。元のJSONを残してください。'+(e?.message||''))}finally{$('file').value=''}};
 function exportConcept(){if(!state.parts.some(p=>p.used)){message('構想図を出力する前に、部品を組み立てに配置してください。');return}setStep(2);resize();render();let c=document.createElement('canvas');c.width=canvas.width;c.height=canvas.height+140;let g=c.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,c.width,c.height);g.fillStyle='#253d37';g.font='bold 26px system-ui';g.fillText(state.title,24,40,c.width-48);g.font='14px system-ui';g.fillText('ヒノキ・板厚12 mm ｜ 板材設計 ウッドプライム用 ｜ 構想図',24,70);g.drawImage(canvas,0,90);g.font='12px system-ui';g.fillText('支給材：500 × 150 mm 2枚、500 × 30 mm 2枚 ／ 線は繊維方向を示します',24,c.height-18,c.width-48);c.toBlob(b=>{if(b)download(b,filename()+'_構想図.png')},'image/png')};
 
 
@@ -3859,7 +3859,7 @@ function drawMoveArrows(){
 function moveArrowAt(e){
  const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let best=null,bd=10;
  for(const a of moveArrows){const px=a.x1-a.x0,py=a.y1-a.y0,t=Math.max(0,Math.min(1,((x-a.x0)*px+(y-a.y0)*py)/(px*px+py*py))),d=Math.hypot(x-(a.x0+px*t),y-(a.y0+py*t));if(d<bd&&t>0.08){bd=d;best=a}}
- return best;
+ return best?{...best,dist:bd}:null;
 }
 {
  const basePD=canvas.onpointerdown,basePM=canvas.onpointermove,basePU=canvas.onpointerup,basePC=canvas.onpointercancel;
@@ -3886,6 +3886,115 @@ function moveArrowAt(e){
  };
  canvas.onpointercancel=function(e){
   if(arrowDrag){const d=arrowDrag;arrowDrag=null;if(d.moved){d.p.pos=[...d.startPos];d.p.floorOffset=d.startFloorOffset;history.pop();refresh()}canvas.style.cursor='default';return}
+  return basePC.call(this,e);
+ };
+}
+// ===== Step2：選択中の部品・仮置きを回転させる矢印（リング）。15°刻み、Shiftで1°ずつ =====
+var rotDrag=null,ringHover=null;
+const RING_PX=48;
+function ringBasis(k){const e=[0,1,2].map(i=>{const u=[0,0,0];u[i]=1;return fromZUp(u)});return {n:e[k],u:e[(k+1)%3],v:e[(k+2)%3]}}
+function ringCenter(p){
+ const ex=p.isReference?(()=>{const sl=worldSolids(p);return {min:[0,1,2].map(i=>Math.min(...sl.map(q=>q.min[i]))),max:[0,1,2].map(i=>Math.max(...sl.map(q=>q.max[i])))}})():partExtent(p);
+ return [0,1,2].map(i=>(ex.min[i]+ex.max[i])/2);
+}
+var moveRings=[];
+{const baseRenderRings=render;render=function(){const r=baseRenderRings.apply(this,arguments);try{drawMoveRings()}catch(e){}return r}}
+function arcPoints(cam,center,k,R,t0,span,steps=28){const b=ringBasis(k),pts=[];for(let i=0;i<=steps;i++){const a=t0+(i/steps-.5)*span,c=Math.cos(a),s=Math.sin(a);pts.push(camProject(cam,center.map((v,j)=>v+(b.u[j]*c+b.v[j]*s)*R)))}return pts}
+function ringFacing(cam,center,k){const r=camRay(cam,cam.pane.x+cam.pane.w/2+panX,cam.pane.y+cam.pane.h/2+panY),L=Math.hypot(...r.d)||1,n=ringBasis(k).n;return Math.abs((r.d[0]*n[0]+r.d[1]*n[1]+r.d[2]*n[2])/L)}
+const ARC_SPAN=Math.PI*0.42; // 回転用の円弧の長さ（約75°）
+// 画面上で、移動用の矢印（先端の文字まで）や他の円弧からいちばん離れた位置に円弧の中心を決める。
+function chooseArcCenters(cam,center,defs,R,arrows,pane){
+ const out=new Map(),o=camProject(cam,center),segs=arrows.map(a=>{const L=Math.hypot(a.x1-a.x0,a.y1-a.y0)||1;return [a.x0,a.y0,a.x1+(a.x1-a.x0)/L*30,a.y1+(a.y1-a.y0)/L*30]}),pts=[];
+ const dseg=(x,y,s)=>{const px=s[2]-s[0],py=s[3]-s[1],L2=px*px+py*py||1,t=Math.max(0,Math.min(1,((x-s[0])*px+(y-s[1])*py)/L2));return Math.hypot(x-(s[0]+px*t),y-(s[1]+py*t))};
+ const margin=24;
+ for(const def of defs){
+  const b=ringBasis(def.k);let best=0,bs=-1;
+  const at=a=>camProject(cam,center.map((v,j)=>v+(b.u[j]*Math.cos(a)+b.v[j]*Math.sin(a))*R));
+  for(let i=0;i<72;i++){const t=i/72*Math.PI*2;let sc=999;
+   for(let k=0;k<=6;k++){const q=at(t+(k/6-.5)*ARC_SPAN);for(const sg of segs)sc=Math.min(sc,dseg(q[0],q[1],sg));for(const r of pts)sc=Math.min(sc,Math.hypot(q[0]-r[0],q[1]-r[1]));
+    // 画面の外にはみ出さない
+    sc=Math.min(sc,(q[0]-pane.x)+40,(pane.x+pane.w-q[0])+40,(q[1]-pane.y)+40,(pane.y+pane.h-q[1])+40)}
+   if(sc>bs+1e-9){bs=sc;best=t}}
+  out.set(def.k,best);
+  for(let k=0;k<=8;k++)pts.push(at(best+(k/8-.5)*ARC_SPAN));
+ }
+ return out;
+}
+function drawMoveRings(){
+ moveRings=[];const p=moveArrowPart();if(!p||!viewW||activeStep!==2)return;
+ const dpr=devicePixelRatio||1,panes=canvas.viewPanes||[{x:0,y:0,w:viewW,h:viewH}],center=rotDrag?rotDrag.ring.center:ringCenter(p);
+ for(const pane of panes){
+  const cam=nailCam(pane),R=Math.min(112,Math.min(pane.w,pane.h)*.4)/cam.scale,o=camProject(cam,center);ctx.save();ctx.setTransform(dpr,0,0,dpr,0,0);ctx.beginPath();ctx.rect(pane.x,pane.y,pane.w,pane.h);ctx.clip();
+  const defs=MOVE_ARROW_DEFS.filter(def=>ringFacing(cam,center,def.k)>=0.14); // 真横から見ると円弧が線になるため出さない
+  const arrows=moveArrows.filter(a=>a.cam.pane.x===pane.x&&a.cam.pane.y===pane.y);
+  const centers=chooseArcCenters(cam,center,defs,R,arrows,pane);
+  if(rotDrag)centers.set(rotDrag.def.k,rotDrag.ring.t0); // ドラッグ中は円弧の位置を固定する
+  for(const def of defs){
+   const t0=centers.get(def.k),pts=arcPoints(cam,center,def.k,R,t0,ARC_SPAN),active=rotDrag?.def===def||ringHover===def.k;
+   moveRings.push({def,cam,pts,center,R,pane,t0});
+   ctx.lineJoin='round';ctx.lineCap='round';ctx.setLineDash([]);
+   const path=()=>{ctx.beginPath();pts.forEach((q,i)=>i?ctx.lineTo(q[0],q[1]):ctx.moveTo(q[0],q[1]))};
+   ctx.strokeStyle='#fffffff0';ctx.lineWidth=active?9:7;path();ctx.stroke();
+   ctx.strokeStyle=def.color;ctx.lineWidth=active?5:3.5;path();ctx.stroke();
+   // 両端の矢じり
+   ctx.fillStyle=def.color;for(const [a,b] of [[pts[1],pts[0]],[pts[pts.length-2],pts[pts.length-1]]]){const dx=b[0]-a[0],dy=b[1]-a[1],L=Math.hypot(dx,dy)||1,ux=dx/L,uy=dy/L,h=active?11:9;ctx.beginPath();ctx.moveTo(b[0]+ux*h*.6,b[1]+uy*h*.6);ctx.lineTo(b[0]-ux*h*.6-uy*h*.6,b[1]-uy*h*.6+ux*h*.6);ctx.lineTo(b[0]-ux*h*.6+uy*h*.6,b[1]-uy*h*.6-ux*h*.6);ctx.closePath();ctx.fill()}
+   const g=rotDrag?.def===def&&rotDrag.grip?rotDrag.grip:pts[Math.floor(pts.length/2)];
+   ctx.fillStyle='#fff';ctx.strokeStyle=def.color;ctx.lineWidth=2.5;ctx.beginPath();ctx.arc(g[0],g[1],active?7:6,0,Math.PI*2);ctx.fill();ctx.stroke();
+  }
+  if(rotDrag&&rotDrag.pane.x===pane.x&&rotDrag.pane.y===pane.y&&rotDrag.pane.w===pane.w){ctx.font='bold 13px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';const t=rotDrag.def.label2+'回転 '+Math.round(rotDrag.shown)+'°';ctx.lineWidth=4;ctx.strokeStyle='#fffffff0';ctx.strokeText(t,o[0],o[1]+24);ctx.fillStyle=rotDrag.def.color;ctx.fillText(t,o[0],o[1]+24)}
+  ctx.restore();
+ }
+}
+MOVE_ARROW_DEFS[0].label2='X軸';MOVE_ARROW_DEFS[1].label2='Y軸';MOVE_ARROW_DEFS[2].label2='Z軸';
+function moveRingAt(e){
+ const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;let best=null,bd=9;
+ for(const g of moveRings){for(let i=1;i<g.pts.length;i++){const a=g.pts[i-1],b=g.pts[i],px=b[0]-a[0],py=b[1]-a[1],L2=px*px+py*py||1,t=Math.max(0,Math.min(1,((x-a[0])*px+(y-a[1])*py)/L2)),d=Math.hypot(x-(a[0]+px*t),y-(a[1]+py*t));if(d<bd){bd=d;best=g}}}
+ return best?{ring:best,dist:bd}:null;
+}
+// 画面上の点を、リングの面（中心を通り軸に垂直な面）に投影したときの角度（右ねじの向きが正）
+function ringAngleAt(g,e){
+ const r=canvas.getBoundingClientRect(),ray=camRay(g.cam,e.clientX-r.left,e.clientY-r.top),b=ringBasis(g.def.k),dn=ray.d[0]*b.n[0]+ray.d[1]*b.n[1]+ray.d[2]*b.n[2];
+ if(Math.abs(dn)<1e-9)return null;
+ const t=((g.center[0]-ray.o[0])*b.n[0]+(g.center[1]-ray.o[1])*b.n[1]+(g.center[2]-ray.o[2])*b.n[2])/dn,pt=ray.o.map((v,i)=>v+ray.d[i]*t-g.center[i]);
+ return Math.atan2(pt[0]*b.v[0]+pt[1]*b.v[1]+pt[2]*b.v[2],pt[0]*b.u[0]+pt[1]*b.u[1]+pt[2]*b.u[2])*180/Math.PI;
+}
+function snapshotPose(p){return {rot:[...p.rot],pos:[...p.pos],angles:p.rotationAngles?[...p.rotationAngles]:null,floorOffset:p.floorOffset}}
+function restorePose(p,s){p.rot=[...s.rot];p.pos=[...s.pos];if(s.angles)p.rotationAngles=[...s.angles];else delete p.rotationAngles;p.floorOffset=s.floorOffset}
+{
+ const basePD=canvas.onpointerdown,basePM=canvas.onpointermove,basePU=canvas.onpointerup,basePC=canvas.onpointercancel;
+ canvas.onpointerdown=function(e){
+  if(e.button===0&&!drag&&!arrowDrag){
+   const h=moveRingAt(e),a=moveArrowAt(e),p=moveArrowPart();
+   if(h&&p&&(!a||h.dist<a.dist)){const ang=ringAngleAt(h.ring,e);if(ang!==null){e.preventDefault();rotDrag={def:h.ring.def,ring:h.ring,pane:h.ring.pane,p,startAngle:ang,base:rotationAngles(p)[h.ring.def.k],pose:snapshotPose(p),sx:e.clientX,sy:e.clientY,moved:false,shown:0,grip:null};canvas.setPointerCapture(e.pointerId);render();return}}
+  }
+  return basePD.call(this,e);
+ };
+ canvas.onpointermove=function(e){
+  if(rotDrag){
+   const d=rotDrag;if(!d.moved&&Math.hypot(e.clientX-d.sx,e.clientY-d.sy)>3){checkpoint();d.moved=true}
+   if(d.moved){
+    const ang=ringAngleAt(d.ring,e);if(ang!==null){
+     const norm=v=>((v+540)%360+360)%360-180,raw=norm(ang-d.startAngle),step=norm(raw-(d.prevRaw??0));d.prevRaw=raw;d.acc=(d.acc??0)+step; // 1周以上の連続回転にも追従する
+     const total=d.acc;let target=d.base+total;
+     target=e.shiftKey?d.base+Math.round(total):Math.round(target/15)*15;
+     target=((target%360)+360)%360;d.shown=((target-d.base+540)%360)-180;
+     restorePose(d.p,d.pose);turnPart(d.p,d.def.k,target);
+     const b=ringBasis(d.def.k),cam=d.ring.cam,rel=((target-d.base)*Math.PI/180);
+     d.grip=camProject(cam,d.ring.center.map((v,j)=>v+(b.u[j]*Math.cos(rel+d.ring.t0)+b.v[j]*Math.sin(rel+d.ring.t0))*d.ring.R));
+     refresh();
+    }
+    canvas.style.cursor='grabbing';
+   }
+   return;
+  }
+  const r=basePM.call(this,e);if(!drag&&!arrowDrag){const h=moveRingAt(e),a=moveArrowAt(e),k=h&&(!a||h.dist<a.dist)?h.ring.def.k:null;if(k!==ringHover){ringHover=k;render()}if(k!==null)canvas.style.cursor='grab'}return r;
+ };
+ canvas.onpointerup=function(e){
+  if(rotDrag){const d=rotDrag;rotDrag=null;try{canvas.releasePointerCapture(e.pointerId)}catch(_){}canvas.style.cursor='default';if(d.moved)refresh();else render();return}
+  return basePU.call(this,e);
+ };
+ canvas.onpointercancel=function(e){
+  if(rotDrag){const d=rotDrag;rotDrag=null;if(d.moved){restorePose(d.p,d.pose);history.pop();refresh()}canvas.style.cursor='default';return}
   return basePC.call(this,e);
  };
 }
