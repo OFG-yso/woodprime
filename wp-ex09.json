@@ -2,7 +2,7 @@
   "version": 1,
   "title": "板材設計",
   "next": 15,
-  "selected": "p10",
+  "selected": "p11",
   "kerf": 10,
   "parts": [
     {
@@ -91,7 +91,8 @@
         }
       ],
       "operationNode": "350589fd-0b31-473f-b68e-41f3fc3fea5f:1",
-      "floorOffset": 0
+      "floorOffset": 0,
+      "cancelled": true
     },
     {
       "id": "p11",
@@ -452,7 +453,8 @@
         }
       ],
       "operationNode": "011e61f4-c537-4c97-b4f3-31d095c44fe2:1",
-      "floorOffset": 0
+      "floorOffset": 0,
+      "cancelled": true
     },
     {
       "id": "p13",
@@ -764,7 +766,8 @@
         }
       ],
       "operationNode": "2a528290-cfec-4941-90dc-a9000d8bbd69:1",
-      "floorOffset": 0
+      "floorOffset": 0,
+      "cancelled": true
     },
     {
       "id": "p7",
@@ -2851,6 +2854,11 @@
     }
   ],
   "reportReferences": "トイレットペーパーストッカー",
+  "reportViewAngles": [
+    -0.7853981633974483,
+    0.6154797086703873
+  ],
+  "reportViewZoom": 1,
   "nails": [
     {
       "id": "n1",
@@ -3060,7 +3068,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-14T14:47:10.914Z",
+  "savedAt": "2026-10-17T00:18:14.594Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
@@ -3078,10 +3086,5 @@
       "references": 1
     }
   },
-  "reportViewAngles": [
-    -0.7853981633974483,
-    0.6154797086703873
-  ],
-  "reportViewZoom": 1,
   "coordinateSystem": "right-handed-z-up"
 }

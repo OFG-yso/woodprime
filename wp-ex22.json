@@ -2,7 +2,7 @@
   "version": 1,
   "title": "板材設計",
   "next": 17,
-  "selected": "p13",
+  "selected": "p5",
   "kerf": 10,
   "parts": [
     {
@@ -2295,7 +2295,8 @@
         }
       ],
       "operationNode": "c5f25534-a021-456b-8beb-c7dc5fa2fb9b:1",
-      "floorOffset": 0
+      "floorOffset": 0,
+      "cancelled": true
     },
     {
       "id": "p13",
@@ -2476,7 +2477,8 @@
         }
       ],
       "operationNode": "e91904e3-95fb-4c29-bcb3-a219720fc641:1",
-      "floorOffset": 0
+      "floorOffset": 0,
+      "cancelled": true
     },
     {
       "id": "p9",
@@ -11654,6 +11656,11 @@
     }
   ],
   "reportReferences": "道具箱",
+  "reportViewAngles": [
+    -0.7853981633974483,
+    0.6154797086703873
+  ],
+  "reportViewZoom": 1,
   "nails": [
     {
       "id": "n1",
@@ -11898,7 +11905,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-13T07:53:08.442Z",
+  "savedAt": "2026-10-17T00:21:44.499Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
@@ -11916,10 +11923,5 @@
       "references": 1
     }
   },
-  "reportViewAngles": [
-    -0.7853981633974483,
-    0.6154797086703873
-  ],
-  "reportViewZoom": 1,
   "coordinateSystem": "right-handed-z-up"
 }

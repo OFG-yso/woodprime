@@ -2,7 +2,7 @@
   "version": 1,
   "title": "板材設計",
   "next": 15,
-  "selected": "p5",
+  "selected": "p9",
   "kerf": 10,
   "parts": [
     {
@@ -23,7 +23,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "cancelled": true
     },
     {
       "id": "p4",
@@ -43,7 +44,8 @@
         0,
         0,
         0
-      ]
+      ],
+      "cancelled": true
     },
     {
       "id": "p9",
@@ -569,7 +571,7 @@
           "op": "2549ff9a-56e4-4dc4-a4e4-b0fe0447e10c"
         }
       ],
-      "cancelled": false
+      "cancelled": true
     },
     {
       "id": "p5",
@@ -5272,7 +5274,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-16T10:08:21.312Z",
+  "savedAt": "2026-10-17T00:17:17.121Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",

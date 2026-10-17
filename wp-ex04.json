@@ -2,7 +2,7 @@
   "version": 1,
   "title": "板材設計",
   "next": 30,
-  "selected": "p12",
+  "selected": "p22",
   "kerf": 10,
   "parts": [
     {
@@ -331,7 +331,7 @@
           "op": "96f4fb41-479d-4b22-88d7-de8febfb15f1"
         }
       ],
-      "cancelled": false,
+      "cancelled": true,
       "floorOffset": 0
     },
     {
@@ -8454,7 +8454,7 @@
     "name": "板材設計",
     "version": "4.82"
   },
-  "savedAt": "2026-10-16T10:03:59.966Z",
+  "savedAt": "2026-10-17T00:12:49.042Z",
   "compatibility": {
     "coreSchemaVersion": 1,
     "geometry": "parts-snapshot",
